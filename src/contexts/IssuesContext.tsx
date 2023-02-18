@@ -4,9 +4,15 @@ import { api } from '../lib/axios'
 
 interface Issue {
   id: number
+  number: number
+  assignee: {
+    html_url: string
+    login: string
+  }
   title: string
   created_at: string
   body: string
+  comments: number
 }
 
 interface IssuesContextType {

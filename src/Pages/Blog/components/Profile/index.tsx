@@ -1,5 +1,4 @@
 import {
-  faBuilding,
   faUserGroup,
   faUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons'
@@ -17,10 +16,10 @@ import {
   ProfileTexts,
 } from './style'
 import { useContextSelector } from 'use-context-selector'
-import { UserContext } from '../../../../contexts/UserContext'
+import { GithubDataContext } from '../../../../contexts/GithubDataContext'
 
 export function Profile() {
-  const user = useContextSelector(UserContext, (context) => {
+  const user = useContextSelector(GithubDataContext, (context) => {
     return context.user
   })
 

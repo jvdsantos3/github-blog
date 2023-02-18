@@ -5,6 +5,7 @@ import { SearchForm, SearchInputContainer, SearchInputHeader } from './styles'
 import { useContextSelector } from 'use-context-selector'
 import { IssuesContext } from '../../../../contexts/IssuesContext'
 import { useEffect } from 'react'
+import { GithubDataContext } from '../../../../contexts/GithubDataContext'
 
 const searchInputSchema = z.object({
   query: z.string(),
@@ -13,27 +14,29 @@ const searchInputSchema = z.object({
 type SearchInputs = z.infer<typeof searchInputSchema>
 
 export function SearchInput() {
-  const issuesCount = useContextSelector(IssuesContext, (context) => {
-    return context.issuesCount
+  const totalCount = useContextSelector(GithubDataContext, (context) => {
+    return context.totalCount
   })
 
-  const fetchIssues = useContextSelector(IssuesContext, (context) => {
-    return context.fetchIssues
+  const fetchIssues = useContextSelector(GithubDataContext, (context) => {
+    return context.fetchIssuesSearch
   })
 
-  const { register, handleSubmit } = useForm<SearchInputs>({
+  const { register, handleSubmit, reset } = useForm<SearchInputs>({
     resolver: zodResolver(searchInputSchema),
   })
 
   function handleSearchIssues(data: SearchInputs) {
     fetchIssues(data.query)
+
+    reset()
   }
 
   return (
     <SearchInputContainer>
       <SearchInputHeader>
         <h3>Publicações</h3>
-        <span>{issuesCount} publicações</span>
+        <span>{totalCount} publicações</span>
       </SearchInputHeader>
 
       <SearchForm onSubmit={handleSubmit(handleSearchIssues)}>

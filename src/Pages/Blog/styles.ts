@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const BlogContainer = styled.main`
@@ -12,7 +13,9 @@ export const BlogContent = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 `
-export const BlogCard = styled.div`
+export const BlogCard = styled(NavLink)`
+  text-decoration: none;
+
   background: ${(props) => props.theme['base-post']};
   box-sizing: border-box;
   border: 2px solid ${(props) => props.theme['base-post']};
@@ -22,6 +25,10 @@ export const BlogCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+
+  > p {
+    color: ${(props) => props.theme['base-text']};
+  }
 
   &:hover {
     border: 2px solid ${(props) => props.theme['base-label']};

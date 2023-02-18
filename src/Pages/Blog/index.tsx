@@ -1,5 +1,5 @@
 import { useContextSelector } from 'use-context-selector'
-import { IssuesContext } from '../../contexts/IssuesContext'
+import { GithubDataContext } from '../../contexts/GithubDataContext'
 import { UserProvider } from '../../contexts/UserContext'
 import { dateFormatter, textLenghtFormatter } from '../../utils/formatter'
 import { Profile } from './components/Profile'
@@ -13,8 +13,12 @@ import {
 } from './styles'
 
 export function Blog() {
-  const issues = useContextSelector(IssuesContext, (context) => {
-    return context.issues
+  const issues = useContextSelector(GithubDataContext, (context) => {
+    return context.items
+  })
+
+  const totalCount = useContextSelector(GithubDataContext, (context) => {
+    return context.totalCount
   })
 
   return (
@@ -26,21 +30,22 @@ export function Blog() {
       <SearchInput />
 
       <BlogContent>
-        {issues.map((issue) => {
-          return (
-            <BlogCard key={issue.id}>
-              <BlogCardHeader>
-                <h3>{issue.title}</h3>
-                <span>{dateFormatter(issue.created_at)}</span>
-              </BlogCardHeader>
+        {issues &&
+          issues.map((issue) => {
+            return (
+              <BlogCard key={issue.number} to={`/post/${issue.number}`}>
+                <BlogCardHeader>
+                  <h3>{issue.title}</h3>
+                  <span>{dateFormatter(issue.created_at)}</span>
+                </BlogCardHeader>
 
-              <p>{textLenghtFormatter(issue.body)}</p>
-            </BlogCard>
-          )
-        })}
+                <p>{textLenghtFormatter(issue.body)}</p>
+              </BlogCard>
+            )
+          })}
       </BlogContent>
 
-      {issues.length < 1 && <IssuesEmpty>Sem registros...</IssuesEmpty>}
+      {totalCount < 1 && <IssuesEmpty>Sem registros...</IssuesEmpty>}
     </BlogContainer>
   )
 }

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ProfileContainer = styled.div`
   background: ${(props) => props.theme['base-profile']};
-  box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.2);
 
   padding: 2rem 2rem 2rem 2.5rem;
   margin: -5.5rem 0 4.5rem;
