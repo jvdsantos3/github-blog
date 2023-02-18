@@ -11,6 +11,7 @@ interface Issue {
 
 interface IssuesContextType {
   issues: Issue[]
+  issuesCount: number
   fetchIssues: (query?: string) => Promise<void>
 }
 
@@ -23,6 +24,8 @@ export const IssuesContext = createContext({} as IssuesContextType)
 export function IssuesProvider({ children }: IssuesProviderProps) {
   const [issues, setIssues] = useState<Issue[]>([])
 
+  const issuesCount = issues.length
+
   const fetchIssues = useCallback(async (query?: string) => {
     const response = await api.get('search/issues', {
       params: {
@@ -32,9 +35,7 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
       },
     })
 
-    console.log(fetchIssues)
-
-    setIssues([response.data])
+    setIssues(response.data.items)
   }, [])
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
   }, [fetchIssues])
 
   return (
-    <IssuesContext.Provider value={{ issues, fetchIssues }}>
+    <IssuesContext.Provider value={{ issues, fetchIssues, issuesCount }}>
       {children}
     </IssuesContext.Provider>
   )

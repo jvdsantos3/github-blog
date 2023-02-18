@@ -4,8 +4,11 @@ export const SearchInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+`
 
-  > input {
+export const SearchForm = styled.form`
+  input[type='text'] {
+    width: 100%;
     background: ${(props) => props.theme['base-input']};
     border: 1px solid ${(props) => props.theme['base-border']};
     border-radius: 6px;

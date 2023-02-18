@@ -19,6 +19,7 @@ export const ProfileContent = styled.div`
     width: 9.25rem;
     height: 9.25rem;
 
+    background: ${(props) => props.theme['base-profile']};
     border-radius: 8px;
   }
 `

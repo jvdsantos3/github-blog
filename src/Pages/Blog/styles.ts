@@ -6,7 +6,7 @@ export const BlogContainer = styled.main`
 `
 
 export const BlogContent = styled.div`
-  margin: 3rem 0 14.625rem;
+  margin: 3rem 0 5rem;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -46,4 +46,12 @@ export const BlogCardHeader = styled.div`
     font-size: 0.875rem;
     color: ${(props) => props.theme['base-span']};
   }
+`
+
+export const IssuesEmpty = styled.span`
+  display: block;
+  text-align: center;
+
+  font-weight: bold;
+  color: ${(props) => props.theme['base-span']};
 `
