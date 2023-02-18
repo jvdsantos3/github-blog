@@ -24,6 +24,7 @@ export const ProfileContent = styled.div`
 `
 
 export const ProfileContentInfo = styled.div`
+  flex: 1;
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;

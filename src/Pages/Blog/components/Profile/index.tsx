@@ -16,43 +16,41 @@ import {
   ProfileHeader,
   ProfileTexts,
 } from './style'
+import { useContextSelector } from 'use-context-selector'
+import { UserContext } from '../../../../contexts/UserContext'
 
 export function Profile() {
+  const user = useContextSelector(UserContext, (context) => {
+    return context.user
+  })
+
   return (
     <ProfileContainer>
       <ProfileContent>
-        <img src="https://github.com/jvdsantos3.png" alt="" />
+        <img src={user.avatar_url} alt="" />
 
         <ProfileContentInfo>
           <ProfileTexts>
             <ProfileHeader>
-              <h1>João Vitor</h1>
+              <h1>{user.name}</h1>
 
-              <a href="https://github.com/jvdsantos3">
+              <a href={user.html_url}>
                 GITHUB
                 <FontAwesomeIcon icon={faUpRightFromSquare} />
               </a>
             </ProfileHeader>
 
-            <p>
-              Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-              viverra massa quam dignissim aenean malesuada suscipit. Nunc,
-              volutpat pulvinar vel mass.
-            </p>
+            <p>{user.bio}</p>
           </ProfileTexts>
 
           <ProfileContentFooter>
             <FooterItems>
               <FaGithub size={18} />
-              <span>jvdsantos3</span>
-            </FooterItems>
-            <FooterItems>
-              <FontAwesomeIcon icon={faBuilding} />
-              <span>ApiHub</span>
+              <span>{user.login}</span>
             </FooterItems>
             <FooterItems>
               <FontAwesomeIcon icon={faUserGroup} />
-              <span>32 seguidores</span>
+              <span>{user.followers} seguidores</span>
             </FooterItems>
           </ProfileContentFooter>
         </ProfileContentInfo>
