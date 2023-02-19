@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const BlogContainer = styled.main`
+  width: 90%;
   max-width: 54rem;
   margin: 0 auto;
 `
@@ -12,6 +13,10 @@ export const BlogContent = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `
 export const BlogCard = styled(NavLink)`
   text-decoration: none;

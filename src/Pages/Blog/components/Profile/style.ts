@@ -22,6 +22,11 @@ export const ProfileContent = styled.div`
     background: ${(props) => props.theme['base-profile']};
     border-radius: 8px;
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const ProfileContentInfo = styled.div`

@@ -1,8 +1,8 @@
-import { formatDistanceToNowStrict } from 'date-fns'
+import { formatDistanceToNowStrict, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
 export function dateFormatter(dateString: string) {
-  const date = formatDistanceToNowStrict(new Date(dateString), {
+  const date = formatDistanceToNowStrict(parseISO(dateString), {
     addSuffix: true,
     locale: ptBR,
   })

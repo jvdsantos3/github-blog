@@ -1,32 +1,38 @@
-import { useContext, useEffect } from 'react'
 import { PostInfo } from './components/PostInfo'
 import ReactMarkdown from 'react-markdown'
 
 import { PostContainer, PostContent } from './styles'
-import { AnIssueContext } from '../../contexts/AnIssueContext'
-
-interface Issue {
-  id: number
-  number: number
-  assignee: {
-    html_url: string
-    login: string
-  }
-  title: string
-  created_at: string
-  body: string
-  comments: number
-}
+import { useContextSelector } from 'use-context-selector'
+import { GithubDataContext } from '../../contexts/GithubDataContext'
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 export function Post() {
-  const { issue } = useContext(AnIssueContext)
+  const params = useParams()
+
+  const fetchSelectedIssue = useContextSelector(
+    GithubDataContext,
+    (context) => {
+      return context.fetchSelectedIssue
+    },
+  )
+
+  const selectedIssue = useContextSelector(GithubDataContext, (context) => {
+    return context.selectedIssue
+  })
+
+  useEffect(() => {
+    if (!selectedIssue.title) {
+      params.issueNumber && fetchSelectedIssue(params.issueNumber)
+    }
+  }, [fetchSelectedIssue, params, selectedIssue])
 
   return (
     <PostContainer>
       <PostInfo />
 
       <PostContent>
-        <ReactMarkdown>{issue.body}</ReactMarkdown>
+        <ReactMarkdown>{selectedIssue.body}</ReactMarkdown>
       </PostContent>
     </PostContainer>
   )

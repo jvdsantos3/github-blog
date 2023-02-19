@@ -1,9 +1,8 @@
 import { faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink } from 'react-router-dom'
-import { dateFormatter } from '../../../../utils/formatter'
-import { useContext } from 'react'
-import { AnIssueContext } from '../../../../contexts/AnIssueContext'
+import { useContextSelector } from 'use-context-selector'
+import { GithubDataContext } from '../../../../contexts/GithubDataContext'
 
 import {
   FaCalendarDay,
@@ -18,9 +17,12 @@ import {
   PostInfoContent,
   PostInfoHeader,
 } from './styles'
+import { dateFormatter } from '../../../../utils/formatter'
 
 export function PostInfo() {
-  const { issue } = useContext(AnIssueContext)
+  const selectedIssue = useContextSelector(GithubDataContext, (context) => {
+    return context.selectedIssue
+  })
 
   return (
     <PostInfoContainer>
@@ -29,27 +31,30 @@ export function PostInfo() {
           <FaChevronLeft />
           <span>Voltar</span>
         </NavLink>
-        <NavLink to={issue && issue.assignee.html_url}>
+        <NavLink to={selectedIssue.html_url}>
           <span>Ver no GitHub</span>
           <FontAwesomeIcon icon={faUpRightFromSquare} />
         </NavLink>
       </PostInfoHeader>
 
       <PostInfoContent>
-        <h2>{issue.title}</h2>
+        <h2>{selectedIssue.title}</h2>
 
         <PostInfoAssets>
           <span>
             <FaGithub />
-            <p>{issue && issue.assignee.login}</p>
+            <p>{selectedIssue.user && selectedIssue.user.login}</p>
           </span>
           <span>
             <FaCalendarDay />
-            <p>{issue && dateFormatter(issue.created_at)}</p>
+            <p>
+              {selectedIssue.created_at &&
+                dateFormatter(selectedIssue.created_at)}
+            </p>
           </span>
           <span>
             <FaComment />
-            <p>{issue && issue.comments} comentários</p>
+            <p>{selectedIssue.comments} comentários</p>
           </span>
         </PostInfoAssets>
       </PostInfoContent>

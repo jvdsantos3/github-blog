@@ -1,6 +1,5 @@
 import { useContextSelector } from 'use-context-selector'
 import { GithubDataContext } from '../../contexts/GithubDataContext'
-import { UserProvider } from '../../contexts/UserContext'
 import { dateFormatter, textLenghtFormatter } from '../../utils/formatter'
 import { Profile } from './components/Profile'
 import { SearchInput } from './components/SearchInput'
@@ -23,9 +22,7 @@ export function Blog() {
 
   return (
     <BlogContainer>
-      <UserProvider>
-        <Profile />
-      </UserProvider>
+      <Profile />
 
       <SearchInput />
 

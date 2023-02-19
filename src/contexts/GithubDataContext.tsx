@@ -35,7 +35,7 @@ interface GithubDataContextType {
   totalCount: number
   selectedIssue: Issue
   fetchIssuesSearch: (query?: string) => Promise<void>
-  fetchSelectedIssue: () => Promise<void>
+  fetchSelectedIssue: (issueNumber: string) => Promise<void>
 }
 
 interface GithubDataProviderProps {
@@ -74,13 +74,13 @@ export function GithubDataProvider({ children }: GithubDataProviderProps) {
 
   // Selected Issue
 
-  async function fetchSelectedIssue(issueNumber?: string) {
+  const fetchSelectedIssue = useCallback(async (issueNumber: string) => {
     const response = await api.get(
-      `/repos/luislong0/github-blog/issues/${issueNumber}`,
+      `/repos/jvdsantos3/github-blog/issues/${issueNumber}`,
     )
 
     setSelectedIssue(response.data)
-  }
+  }, [])
 
   useEffect(() => {
     fetchUser()
