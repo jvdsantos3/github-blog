@@ -22,10 +22,13 @@ export function Post() {
   })
 
   useEffect(() => {
-    if (!selectedIssue.title) {
+    if (
+      !selectedIssue.body ||
+      selectedIssue.number.toString() !== params.issueNumber
+    ) {
       params.issueNumber && fetchSelectedIssue(params.issueNumber)
     }
-  }, [fetchSelectedIssue, params, selectedIssue])
+  }, [fetchSelectedIssue, params.issueNumber, selectedIssue])
 
   return (
     <PostContainer>

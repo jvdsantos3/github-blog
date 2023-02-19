@@ -20,6 +20,13 @@ export function Blog() {
     return context.totalCount
   })
 
+  // const fetchSelectedIssue = useContextSelector(
+  //   GithubDataContext,
+  //   (context) => {
+  //     return context.fetchSelectedIssue
+  //   },
+  // )
+
   return (
     <BlogContainer>
       <Profile />
@@ -30,7 +37,11 @@ export function Blog() {
         {issues &&
           issues.map((issue) => {
             return (
-              <BlogCard key={issue.number} to={`/post/${issue.number}`}>
+              <BlogCard
+                key={issue.number}
+                to={`/post/${issue.number}`}
+                // onClick={() => fetchSelectedIssue(issue.number.toString())}
+              >
                 <BlogCardHeader>
                   <h3>{issue.title}</h3>
                   <span>{dateFormatter(issue.created_at)}</span>

@@ -74,13 +74,13 @@ export function GithubDataProvider({ children }: GithubDataProviderProps) {
 
   // Selected Issue
 
-  const fetchSelectedIssue = useCallback(async (issueNumber: string) => {
+  async function fetchSelectedIssue(issueNumber: string) {
     const response = await api.get(
       `/repos/jvdsantos3/github-blog/issues/${issueNumber}`,
     )
 
     setSelectedIssue(response.data)
-  }, [])
+  }
 
   useEffect(() => {
     fetchUser()
